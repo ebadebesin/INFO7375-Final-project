@@ -1,0 +1,10 @@
+The dataset "DATA_1.csv" includes data captured when falling when walking. 
+
+
+The State 1 represents the time in which the fall took place.
+
+The person was initially walking.
+
+The data from 15800 milliseconds to 18200 milliseconds is when the actual fall took place.
+
+After 18200 milliseconds the person just woke from fall but was sitting at same position and relaxing 
