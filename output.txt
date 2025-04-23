@@ -1,0 +1,253 @@
+Step 1: Loading and cleaning datasets...
+Cleaned and normalized data saved.
+
+Step 2: Balancing dataset...
+Before Balancing:
+State
+0    2288
+1     386
+Name: count, dtype: int64
+
+After Augmentation and Balancing:
+State
+0    857
+1    772
+Name: count, dtype: int64
+
+Model Evaluation:
+[[174  20]
+ [ 16 116]]
+              precision    recall  f1-score   support
+
+           0       0.92      0.90      0.91       194
+           1       0.85      0.88      0.87       132
+
+    accuracy                           0.89       326
+   macro avg       0.88      0.89      0.89       326
+weighted avg       0.89      0.89      0.89       326
+
+Accuracy: 0.8895705521472392
+
+Balanced dataset saved as 'data/balanced_dataset.csv'
+Balanced dataset saved as 'data/balanced_dataset.csv'
+
+Step 3: Preparing sequence data...
+Loading balanced dataset...
+
+Sequence Preparation Class Distribution:
+State
+0    857
+1    772
+Name: count, dtype: int64
+X shape: (116, 14, 3), y shape: (116,)
+
+Step 4: Training and evaluating LSTM model...
+Loading balanced dataset...
+X shape: (232, 7, 3), y shape: (232,)
+2025-04-23 13:18:26.018275: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Model: "sequential"
+┌─────────────────────────────────┬────────────────────────┬───────────────┐
+│ Layer (type)                    │ Output Shape           │       Param # │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ lstm (LSTM)                     │ (None, 7, 32)          │         4,608 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ batch_normalization             │ (None, 7, 32)          │           128 │
+│ (BatchNormalization)            │                        │               │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dropout (Dropout)               │ (None, 7, 32)          │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ lstm_1 (LSTM)                   │ (None, 64)             │        24,832 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ batch_normalization_1           │ (None, 64)             │           256 │
+│ (BatchNormalization)            │                        │               │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dropout_1 (Dropout)             │ (None, 64)             │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense (Dense)                   │ (None, 32)             │         2,080 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ batch_normalization_2           │ (None, 32)             │           128 │
+│ (BatchNormalization)            │                        │               │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dropout_2 (Dropout)             │ (None, 32)             │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense_1 (Dense)                 │ (None, 1)              │            33 │
+└─────────────────────────────────┴────────────────────────┴───────────────┘
+ Total params: 32,065 (125.25 KB)
+ Trainable params: 31,809 (124.25 KB)
+ Non-trainable params: 256 (1.00 KB)
+Training LSTM model...
+Epoch 1/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 14s 232ms/step - accuracy: 0.5724 - auc: 0.6472 - loss: 0.6732 - precision: 0.5498 - recall: 0.6180 - val_accuracy: 0.4857 - val_auc: 0.9592 - val_loss: 0.6906 - val_precision: 0.4857 - val_recall: 1.0000
+Epoch 2/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 44ms/step - accuracy: 0.7673 - auc: 0.8408 - loss: 0.4766 - precision: 0.7040 - recall: 0.8956 - val_accuracy: 0.4857 - val_auc: 0.9624 - val_loss: 0.6882 - val_precision: 0.4857 - val_recall: 1.0000
+Epoch 3/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 34ms/step - accuracy: 0.8307 - auc: 0.9028 - loss: 0.3692 - precision: 0.7531 - recall: 0.9657 - val_accuracy: 0.4857 - val_auc: 0.9575 - val_loss: 0.6818 - val_precision: 0.4857 - val_recall: 1.0000
+Epoch 4/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 41ms/step - accuracy: 0.8590 - auc: 0.9118 - loss: 0.3610 - precision: 0.8053 - recall: 0.9358 - val_accuracy: 0.4857 - val_auc: 0.9690 - val_loss: 0.6756 - val_precision: 0.4857 - val_recall: 1.0000
+Epoch 5/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 29ms/step - accuracy: 0.8446 - auc: 0.8865 - loss: 0.4085 - precision: 0.7684 - recall: 0.9697 - val_accuracy: 0.5429 - val_auc: 0.9869 - val_loss: 0.6662 - val_precision: 0.5152 - val_recall: 1.0000
+Epoch 6/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 28ms/step - accuracy: 0.8580 - auc: 0.9251 - loss: 0.3452 - precision: 0.8101 - recall: 0.9219 - val_accuracy: 0.7143 - val_auc: 0.9820 - val_loss: 0.6561 - val_precision: 0.6296 - val_recall: 1.0000
+Epoch 7/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step - accuracy: 0.8967 - auc: 0.9575 - loss: 0.2571 - precision: 0.8333 - recall: 0.9829 - val_accuracy: 0.8571 - val_auc: 0.9967 - val_loss: 0.6430 - val_precision: 0.7727 - val_recall: 1.0000
+Epoch 8/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step - accuracy: 0.8915 - auc: 0.9536 - loss: 0.2698 - precision: 0.8328 - recall: 0.9708 - val_accuracy: 0.9429 - val_auc: 0.9935 - val_loss: 0.6302 - val_precision: 0.9412 - val_recall: 0.9412
+Epoch 9/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 24ms/step - accuracy: 0.9450 - auc: 0.9829 - loss: 0.2157 - precision: 0.9050 - recall: 0.9914 - val_accuracy: 0.8286 - val_auc: 0.9935 - val_loss: 0.6202 - val_precision: 1.0000 - val_recall: 0.6471
+Epoch 10/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 27ms/step - accuracy: 0.8709 - auc: 0.9615 - loss: 0.2629 - precision: 0.8176 - recall: 0.9447 - val_accuracy: 0.5143 - val_auc: 0.9967 - val_loss: 0.6089 - val_precision: 0.0000e+00 - val_recall: 0.0000e+00
+Epoch 11/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step - accuracy: 0.9150 - auc: 0.9658 - loss: 0.2245 - precision: 0.8751 - recall: 0.9630 - val_accuracy: 0.5143 - val_auc: 0.9935 - val_loss: 0.6069 - val_precision: 0.0000e+00 - val_recall: 0.0000e+00
+Epoch 12/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step - accuracy: 0.9432 - auc: 0.9866 - loss: 0.1765 - precision: 0.9016 - recall: 0.9914 - val_accuracy: 0.5143 - val_auc: 0.9967 - val_loss: 0.5960 - val_precision: 0.0000e+00 - val_recall: 0.0000e+00
+Epoch 13/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 33ms/step - accuracy: 0.9248 - auc: 0.9811 - loss: 0.1967 - precision: 0.9131 - recall: 0.9346 - val_accuracy: 0.5143 - val_auc: 0.9967 - val_loss: 0.5904 - val_precision: 0.0000e+00 - val_recall: 0.0000e+00
+Epoch 14/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 28ms/step - accuracy: 0.9084 - auc: 0.9754 - loss: 0.2014 - precision: 0.8842 - recall: 0.9326 - val_accuracy: 0.5143 - val_auc: 0.9967 - val_loss: 0.5855 - val_precision: 0.0000e+00 - val_recall: 0.0000e+00
+Epoch 15/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 20ms/step - accuracy: 0.9460 - auc: 0.9831 - loss: 0.1587 - precision: 0.9092 - recall: 0.9868 - val_accuracy: 0.5143 - val_auc: 0.9967 - val_loss: 0.5955 - val_precision: 0.0000e+00 - val_recall: 0.0000e+00
+Epoch 16/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 18ms/step - accuracy: 0.9210 - auc: 0.9843 - loss: 0.1716 - precision: 0.9154 - recall: 0.9224 - val_accuracy: 0.5143 - val_auc: 0.9967 - val_loss: 0.5947 - val_precision: 0.0000e+00 - val_recall: 0.0000e+00
+Epoch 17/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 20ms/step - accuracy: 0.9568 - auc: 0.9822 - loss: 0.1648 - precision: 0.9428 - recall: 0.9694 - val_accuracy: 0.5143 - val_auc: 0.9967 - val_loss: 0.6153 - val_precision: 0.0000e+00 - val_recall: 0.0000e+00
+Epoch 18/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 22ms/step - accuracy: 0.8882 - auc: 0.9637 - loss: 0.2422 - precision: 0.8587 - recall: 0.9189 - val_accuracy: 0.5143 - val_auc: 0.9967 - val_loss: 0.5889 - val_precision: 0.0000e+00 - val_recall: 0.0000e+00
+Epoch 19/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 21ms/step - accuracy: 0.9325 - auc: 0.9848 - loss: 0.1598 - precision: 0.9236 - recall: 0.9397 - val_accuracy: 0.5143 - val_auc: 0.9967 - val_loss: 0.5896 - val_precision: 0.0000e+00 - val_recall: 0.0000e+00
+Epoch 20/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 19ms/step - accuracy: 0.9392 - auc: 0.9813 - loss: 0.1622 - precision: 0.8943 - recall: 0.9914 - val_accuracy: 0.5143 - val_auc: 0.9951 - val_loss: 0.5980 - val_precision: 0.0000e+00 - val_recall: 0.0000e+00
+Epoch 21/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step - accuracy: 0.9412 - auc: 0.9798 - loss: 0.1775 - precision: 0.9361 - recall: 0.9433 - val_accuracy: 0.5143 - val_auc: 0.9967 - val_loss: 0.5557 - val_precision: 0.0000e+00 - val_recall: 0.0000e+00
+Epoch 22/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 19ms/step - accuracy: 0.9449 - auc: 0.9921 - loss: 0.1258 - precision: 0.9490 - recall: 0.9366 - val_accuracy: 0.5143 - val_auc: 0.9967 - val_loss: 0.5584 - val_precision: 0.0000e+00 - val_recall: 0.0000e+00
+Epoch 23/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 20ms/step - accuracy: 0.9483 - auc: 0.9916 - loss: 0.1235 - precision: 0.9201 - recall: 0.9783 - val_accuracy: 0.5143 - val_auc: 0.9951 - val_loss: 0.5741 - val_precision: 0.0000e+00 - val_recall: 0.0000e+00
+Epoch 24/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 21ms/step - accuracy: 0.9466 - auc: 0.9915 - loss: 0.1325 - precision: 0.9369 - recall: 0.9543 - val_accuracy: 0.5143 - val_auc: 0.9935 - val_loss: 0.5704 - val_precision: 0.0000e+00 - val_recall: 0.0000e+00
+Epoch 25/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 27ms/step - accuracy: 0.9556 - auc: 0.9906 - loss: 0.1290 - precision: 0.9606 - recall: 0.9476 - val_accuracy: 0.6857 - val_auc: 0.9804 - val_loss: 0.5067 - val_precision: 1.0000 - val_recall: 0.3529
+Epoch 26/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 19ms/step - accuracy: 0.9692 - auc: 0.9912 - loss: 0.1184 - precision: 0.9661 - recall: 0.9704 - val_accuracy: 0.5429 - val_auc: 0.9902 - val_loss: 0.5205 - val_precision: 1.0000 - val_recall: 0.0588
+Epoch 27/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 20ms/step - accuracy: 0.9780 - auc: 0.9930 - loss: 0.1098 - precision: 0.9673 - recall: 0.9889 - val_accuracy: 0.5429 - val_auc: 0.9902 - val_loss: 0.5222 - val_precision: 1.0000 - val_recall: 0.0588
+Epoch 28/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 27ms/step - accuracy: 0.9563 - auc: 0.9883 - loss: 0.1381 - precision: 0.9263 - recall: 0.9889 - val_accuracy: 0.7143 - val_auc: 0.9967 - val_loss: 0.4290 - val_precision: 1.0000 - val_recall: 0.4118
+Epoch 29/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 40ms/step - accuracy: 0.9883 - auc: 0.9942 - loss: 0.0864 - precision: 0.9810 - recall: 0.9954 - val_accuracy: 0.8571 - val_auc: 0.9967 - val_loss: 0.3824 - val_precision: 1.0000 - val_recall: 0.7059
+Epoch 30/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 19ms/step - accuracy: 0.9797 - auc: 0.9959 - loss: 0.0920 - precision: 0.9732 - recall: 0.9858 - val_accuracy: 0.7143 - val_auc: 0.9935 - val_loss: 0.4377 - val_precision: 1.0000 - val_recall: 0.4118
+Epoch 31/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 18ms/step - accuracy: 0.9736 - auc: 0.9956 - loss: 0.0902 - precision: 0.9798 - recall: 0.9658 - val_accuracy: 0.7429 - val_auc: 0.9918 - val_loss: 0.4054 - val_precision: 1.0000 - val_recall: 0.4706
+Epoch 32/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 19ms/step - accuracy: 0.9745 - auc: 0.9985 - loss: 0.0743 - precision: 0.9673 - recall: 0.9814 - val_accuracy: 0.7429 - val_auc: 0.9902 - val_loss: 0.4143 - val_precision: 1.0000 - val_recall: 0.4706
+Epoch 33/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 18ms/step - accuracy: 0.9595 - auc: 0.9961 - loss: 0.0944 - precision: 0.9410 - recall: 0.9780 - val_accuracy: 0.8286 - val_auc: 0.9902 - val_loss: 0.4167 - val_precision: 1.0000 - val_recall: 0.6471
+Epoch 34/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step - accuracy: 0.9578 - auc: 0.9954 - loss: 0.0952 - precision: 0.9610 - recall: 0.9516 - val_accuracy: 0.8286 - val_auc: 0.9967 - val_loss: 0.3806 - val_precision: 1.0000 - val_recall: 0.6471
+Epoch 35/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 18ms/step - accuracy: 0.9729 - auc: 0.9980 - loss: 0.0729 - precision: 0.9747 - recall: 0.9694 - val_accuracy: 0.5714 - val_auc: 0.9935 - val_loss: 0.5674 - val_precision: 1.0000 - val_recall: 0.1176
+Epoch 36/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 21ms/step - accuracy: 0.9867 - auc: 0.9941 - loss: 0.0924 - precision: 0.9737 - recall: 1.0000 - val_accuracy: 0.6286 - val_auc: 0.9967 - val_loss: 0.4631 - val_precision: 1.0000 - val_recall: 0.2353
+Epoch 37/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 28ms/step - accuracy: 0.9887 - auc: 0.9997 - loss: 0.0577 - precision: 1.0000 - recall: 0.9768 - val_accuracy: 0.9143 - val_auc: 0.9967 - val_loss: 0.3211 - val_precision: 1.0000 - val_recall: 0.8235
+Epoch 38/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 21ms/step - accuracy: 0.9666 - auc: 0.9962 - loss: 0.0808 - precision: 0.9610 - recall: 0.9704 - val_accuracy: 0.8571 - val_auc: 0.9869 - val_loss: 0.3607 - val_precision: 1.0000 - val_recall: 0.7059
+Epoch 39/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 20ms/step - accuracy: 0.9882 - auc: 0.9947 - loss: 0.0694 - precision: 0.9914 - recall: 0.9844 - val_accuracy: 0.8571 - val_auc: 0.9869 - val_loss: 0.3587 - val_precision: 1.0000 - val_recall: 0.7059
+Epoch 40/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 28ms/step - accuracy: 0.9814 - auc: 0.9982 - loss: 0.0618 - precision: 0.9913 - recall: 0.9704 - val_accuracy: 0.9714 - val_auc: 0.9886 - val_loss: 0.2774 - val_precision: 1.0000 - val_recall: 0.9412
+Epoch 41/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step - accuracy: 0.9781 - auc: 0.9960 - loss: 0.0653 - precision: 0.9674 - recall: 0.9890 - val_accuracy: 0.9714 - val_auc: 0.9853 - val_loss: 0.2337 - val_precision: 1.0000 - val_recall: 0.9412
+Epoch 42/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step - accuracy: 0.9835 - auc: 0.9989 - loss: 0.0672 - precision: 0.9776 - recall: 0.9889 - val_accuracy: 0.9714 - val_auc: 0.9869 - val_loss: 0.2030 - val_precision: 1.0000 - val_recall: 0.9412
+Epoch 43/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 27ms/step - accuracy: 1.0000 - auc: 1.0000 - loss: 0.0377 - precision: 1.0000 - recall: 1.0000 - val_accuracy: 0.9714 - val_auc: 0.9869 - val_loss: 0.1766 - val_precision: 1.0000 - val_recall: 0.9412
+Epoch 44/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 29ms/step - accuracy: 0.9876 - auc: 0.9997 - loss: 0.0420 - precision: 1.0000 - recall: 0.9748 - val_accuracy: 0.9714 - val_auc: 0.9837 - val_loss: 0.1697 - val_precision: 1.0000 - val_recall: 0.9412
+Epoch 45/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 19ms/step - accuracy: 0.9852 - auc: 0.9988 - loss: 0.0513 - precision: 0.9709 - recall: 1.0000 - val_accuracy: 0.9714 - val_auc: 0.9788 - val_loss: 0.2033 - val_precision: 1.0000 - val_recall: 0.9412
+Epoch 46/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 24ms/step - accuracy: 0.9833 - auc: 0.9996 - loss: 0.0499 - precision: 0.9953 - recall: 0.9704 - val_accuracy: 0.9714 - val_auc: 0.9837 - val_loss: 0.2236 - val_precision: 1.0000 - val_recall: 0.9412
+Epoch 47/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 18ms/step - accuracy: 0.9873 - auc: 0.9994 - loss: 0.0459 - precision: 0.9868 - recall: 0.9868 - val_accuracy: 0.9714 - val_auc: 0.9755 - val_loss: 0.1944 - val_precision: 1.0000 - val_recall: 0.9412
+Epoch 48/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 18ms/step - accuracy: 0.9669 - auc: 0.9988 - loss: 0.0718 - precision: 0.9910 - recall: 0.9408 - val_accuracy: 0.9714 - val_auc: 0.9902 - val_loss: 0.1884 - val_precision: 1.0000 - val_recall: 0.9412
+Epoch 49/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 18ms/step - accuracy: 0.9688 - auc: 0.9970 - loss: 0.0784 - precision: 0.9488 - recall: 0.9890 - val_accuracy: 0.9714 - val_auc: 0.9902 - val_loss: 0.2059 - val_precision: 1.0000 - val_recall: 0.9412
+Epoch 50/50
+9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 18ms/step - accuracy: 0.9958 - auc: 1.0000 - loss: 0.0337 - precision: 0.9916 - recall: 1.0000 - val_accuracy: 0.9714 - val_auc: 0.9869 - val_loss: 0.1708 - val_precision: 1.0000 - val_recall: 0.9412
+
+Evaluating on test set...
+2/2 ━━━━━━━━━━━━━━━━━━━━ 1s 326ms/step
+Confusion Matrix:
+[[31  0]
+ [ 1 26]]
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.97      1.00      0.98        31
+           1       1.00      0.96      0.98        27
+
+    accuracy                           0.98        58
+   macro avg       0.98      0.98      0.98        58
+weighted avg       0.98      0.98      0.98        58
+
+
+Accuracy: 0.9827586206896551
+ROC AUC: 0.991636798088411
+PR AUC: 0.9923747276688453
+
+Fall predicted count: 26
+No-fall predicted count: 32
+
+Best LSTM model saved at: models/best_lstm_model.keras
+
+Step 5: Predict based on user input...
+
+Please enter a single set of sequence values for all features:
+
+--- Input for Timestep 1 ---
+Enter Sequence (0.00 to 322.00): 302
+Enter Acceleration (-1.27 to 5.08): -1
+Enter AngularVelocity (-1.14 to 7.79): 2
+
+--- Input for Timestep 2 ---
+Enter Sequence (0.00 to 322.00): 304
+Enter Acceleration (-1.27 to 5.08): 0
+Enter AngularVelocity (-1.14 to 7.79): 1
+
+--- Input for Timestep 3 ---
+Enter Sequence (0.00 to 322.00): 305
+Enter Acceleration (-1.27 to 5.08): 2
+Enter AngularVelocity (-1.14 to 7.79): 5
+
+--- Input for Timestep 4 ---
+Enter Sequence (0.00 to 322.00): 306
+Enter Acceleration (-1.27 to 5.08): 
+Invalid input. Please enter a numeric value.
+Enter Acceleration (-1.27 to 5.08): 5
+Enter AngularVelocity (-1.14 to 7.79): 7
+
+--- Input for Timestep 5 ---
+Enter Sequence (0.00 to 322.00): 307
+Enter Acceleration (-1.27 to 5.08): 4
+Enter AngularVelocity (-1.14 to 7.79): 2
+
+--- Input for Timestep 6 ---
+Enter Sequence (0.00 to 322.00): 308
+Enter Acceleration (-1.27 to 5.08): 3
+Enter AngularVelocity (-1.14 to 7.79): 1
+
+--- Input for Timestep 7 ---
+Enter Sequence (0.00 to 322.00): 309
+Enter Acceleration (-1.27 to 5.08): 1
+Enter AngularVelocity (-1.14 to 7.79): 2
+1/1 ━━━━━━━━━━━━━━━━━━━━ 4s 4s/step
+
+Raw prediction score: 0.9679
+Prediction Result:
+FALL
+
+Process finished with exit code 0
